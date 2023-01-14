@@ -1,0 +1,96 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>ComputaCenter CarConfigurator Demo</title>
+
+    <link th:rel="stylesheet" th:href="@{webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+    <div class="container">
+        <a class="navbar-brand" href="/">ComputaCenter CarConfigurator Demo</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                aria-controls="navbarResponsive"
+                aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Home
+                        <span class="sr-only">(current)</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 mt-5">
+            <form method="post" th:action="@{/order}" th:object="${carConfigurationRequest}">
+
+                <div class="form-group">
+                    <label for="engineId">Selected Engine</label>
+                    <select readonly="true" class="form-control selectpicker" th:field="*{engineId}" id="engineId">
+                        <option th:value="${carConfigurationRequest.engineId}"
+                                th:text="${summary.engineName}">engine
+                        </option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="paintWorkId">Selected Paintwork</label>
+                    <select readonly="true" class="form-control selectpicker" th:field="*{paintWorkId}"
+                            id="paintWorkId">
+                        <option th:value="${carConfigurationRequest.paintWorkId}"
+                                th:text="${summary.paintWorkName}">paintwork
+                        </option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="rimsId">Selected Rims</label>
+                    <select readonly="true" class="form-control selectpicker" th:field="*{rimsId}" id="rimsId">
+                        <option th:value="${carConfigurationRequest.rimsId}"
+                                th:text="${summary.rimsName}">rims
+                        </option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="specialEquipmentIds">Selected Special Equipments</label>
+                    <select class="form-control selectpicker" th:field="*{specialEquipmentIds}" id="specialEquipmentIds"
+                            multiple>
+
+                        <option selected th:each="equipment : ${specialEquipment}"
+                                th:value="${equipment.specialEquipmentId.value}"
+                                th:text="${equipment.name}">equipment
+                        </option>
+
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="totalPrice">Total Price: </label>
+                    <p id="totalPrice" th:utext="${summary.totalPrice}"></p>
+                </div>
+
+                <button class="btn btn-primary" type="submit">Order</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+<script th:src="@{assets/bootstrap-select-1.13.9/dist/js/bootstrap-select.js}"></script>
+
+
+</body>
+</html>

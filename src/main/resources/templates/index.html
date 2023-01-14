@@ -1,0 +1,100 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>ComputaCenter CarConfigurator Demo</title>
+
+    <link th:rel="stylesheet" th:href="@{assets/bootstrap-select-1.13.9/dist/css/bootstrap-select.css}"/>
+    <link th:rel="stylesheet" th:href="@{webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
+
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+    <div class="container">
+        <a class="navbar-brand" href="/">ComputaCenter CarConfigurator Demo</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                aria-controls="navbarResponsive"
+                aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Home
+                        <span class="sr-only">(current)</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+
+    <div class="row">
+        <div class="col-md-4 mt-5">
+            <form method="get" th:action="@{/summary}" th:object="${carConfigurationRequest}">
+
+                <div class="form-group">
+                    <label for="engineId">Choose Engine</label>
+                    <select class="form-control selectpicker" th:required="required" th:field="*{engineId}"
+                            id="engineId">
+                        <option value="">Nothing selected</option>
+                        <option th:each="engine : ${engines}"
+                                th:value="${engine.engineId.value}"
+                                th:text="${engine.name}">engine
+                        </option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="paintWorkId">Choose Paintwork</label>
+                    <select class="form-control selectpicker" th:required="required" th:field="*{paintWorkId}"
+                            id="paintWorkId">
+                        <option value="">Nothing selected</option>
+                        <option th:each="paintWork : ${paintWorks}"
+                                th:value="${paintWork.paintWorkId.value}"
+                                th:text="${paintWork.name}">paintwork
+                        </option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="rimsId">Choose Rims</label>
+                    <select class="form-control selectpicker" th:required="required" th:field="*{rimsId}" id="rimsId">
+                        <option value="">Nothing selected</option>
+                        <option th:each="rim : ${rims}"
+                                th:value="${rim.rimId.value}"
+                                th:text="${rim.name}">rims
+                        </option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="specialEquipmentIds">Select Special Equipment</label>
+                    <select class="form-control selectpicker" th:required="required" th:field="*{specialEquipmentIds}"
+                            id="specialEquipmentIds" multiple>
+
+                        <option th:each="equipment : ${specialEquipment}"
+                                th:value="${equipment.specialEquipmentId.value}"
+                                th:text="${equipment.name}">equipment
+                        </option>
+
+                    </select>
+                </div>
+
+                <button class="btn btn-primary" type="submit">Submit form</button>
+            </form>
+        </div>
+    </div>
+
+
+    <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+    <script th:src="@{assets/bootstrap-select-1.13.9/dist/js/bootstrap-select.js}"></script>
+
+</body>
+</html>
